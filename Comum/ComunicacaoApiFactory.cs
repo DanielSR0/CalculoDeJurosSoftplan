@@ -4,21 +4,21 @@ using System.IO;
 
 namespace Comum
 {
+    /// <summary>
+    /// Factory para criação de clients API com Refit.
+    /// </summary>
     public sealed class ComunicacaoAPIFactory
     {
         private const string _appSettings = "appsettings.json";
 
-        public static T ObterComunicacaoComApi<T>(string nomeConfigUrl) where T : IComunicacaoApi
+        /// <summary>
+        /// Obtém um client de API do Refit, utilizando como URL base configuração existente no arquivo "appsettings.json".
+        /// </summary>
+        /// <typeparam name="T">Interface Refit para a criação do client API.</typeparam>
+        /// <param name="nomeConfigUrl">Nome da seção no arquivo "appsettings.json" que contém a URL para ser utilizada como base para a criação do client API.</param>
+        public static T ObterComunicacaoComApi<T>(string nomeConfigUrl)
         {
             var diretorio = Directory.GetCurrentDirectory();
-
-            //TODO
-            //var caminhoAppSettings = Path.Combine(diretorio, _appSettings);
-
-            //if (!File.Exists(caminhoAppSettings))
-            //{
-            //    throw new FileNot
-            //}
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(diretorio)

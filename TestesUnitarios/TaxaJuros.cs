@@ -1,9 +1,8 @@
-using Comum;
-using Comum.ImplementacoesComunicacaoApi;
+using ConsultaTaxaDeJuros.Dados;
 using FluentAssertions;
 using Xunit;
 
-namespace Testes
+namespace TestesUnitarios
 {
     public class TaxaJuros
     {
@@ -11,8 +10,8 @@ namespace Testes
         [InlineData(0.01)]
         public async void ObterTaxaDeJuros(double taxaEsperada)
         {
-            var taxaJurosApi = ComunicacaoAPIFactory.ObterComunicacaoComApi<ITaxaJuros>("TaxaJurosUrl");
-            var taxaEncontrada = await taxaJurosApi.Get();
+            var consultaDeTaxaJuros = new ConsultaDeTaxaJuros();
+            var taxaEncontrada = await consultaDeTaxaJuros.BuscarTaxaJuros();
 
             taxaEncontrada.Should().Be(taxaEsperada);
         }

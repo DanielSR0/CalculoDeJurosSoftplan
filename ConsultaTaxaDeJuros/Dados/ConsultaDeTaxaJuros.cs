@@ -1,4 +1,5 @@
 ﻿using ConsultaTaxaDeJuros.Consultas;
+using System.Threading.Tasks;
 
 namespace ConsultaTaxaDeJuros.Dados
 {
@@ -6,9 +7,9 @@ namespace ConsultaTaxaDeJuros.Dados
     internal class ConsultaDeTaxaJuros : IConsultaDeTaxaJuros
     {
         /// <inheritdoc/>
-        public double BuscarTaxaJuros()
+        public Task<double> BuscarTaxaJuros()
         {
-            return 0.01;
+            return Task.FromResult(0.01);
         }
     }
 }

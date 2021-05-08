@@ -1,4 +1,6 @@
-﻿namespace ConsultaTaxaDeJuros.Consultas
+﻿using System.Threading.Tasks;
+
+namespace ConsultaTaxaDeJuros.Consultas
 {
     /// <summary>
     /// Consulta de taxas de juros.
@@ -8,6 +10,6 @@
         /// <summary>
         /// Buscar a taxa de juros corrente.
         /// </summary>
-        public double BuscarTaxaJuros();
+        public Task<double> BuscarTaxaJuros();
     }
 }

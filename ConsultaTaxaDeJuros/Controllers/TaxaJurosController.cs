@@ -1,6 +1,7 @@
 ﻿using ConsultaTaxaDeJuros.Consultas;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace ConsultaTaxaDeJuros.Controllers
 {
@@ -20,9 +21,11 @@ namespace ConsultaTaxaDeJuros.Controllers
         }
 
         [HttpGet]
-        public double Get()
+        public async Task<double> Get()
         {
-            var taxaJuros = _consultaDeTaxaJuros.BuscarTaxaJuros();
+            _logger.LogInformation("Taxa atual de juros sendo consultada.");
+
+            var taxaJuros = await _consultaDeTaxaJuros.BuscarTaxaJuros();
 
             return taxaJuros;
         }

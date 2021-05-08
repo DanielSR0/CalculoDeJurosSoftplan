@@ -1,6 +1,8 @@
 ﻿using CalculoDeJuros.Negocio;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace CalculoDeJuros.Controllers
@@ -21,11 +23,27 @@ namespace CalculoDeJuros.Controllers
         }
 
         [HttpGet]
-        public async Task<double> Get(double valorInicial, int meses)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(double))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public async Task<ActionResult<double>> Get(double valorInicial, int meses)
         {
-            var resultado = await _servicoDeCalculoJuros.CalcularJuros(valorInicial, meses);
+            _logger.LogInformation(
+                "Solicitado cálculo de juros sobre o valor inicial {valorInicial} ao longo de {meses} meses.",
+                valorInicial.ToString("N2"),
+                meses.ToString());
 
-            return resultado;
+            try
+            {
+                var resultado = await _servicoDeCalculoJuros.CalcularJuros(valorInicial, meses);
+
+                return Ok(resultado);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogError(ex.Message);
+
+                return BadRequest($"{ex.Message}");
+            }
         }
     }
 }

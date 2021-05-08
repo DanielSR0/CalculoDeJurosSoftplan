@@ -13,7 +13,6 @@ namespace CalculoDeJuros.Controllers
         [HttpGet]
         public string Get()
         {
-            //TODO
             var urlGit = "https://github.com/DanielSR0/CalculoDeJurosSoftplan";
 
             return urlGit;
