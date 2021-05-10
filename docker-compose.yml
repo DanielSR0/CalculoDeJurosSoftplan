@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  calculodejuros:
+    image: ${DOCKER_REGISTRY-}calculodejuros
+    build:
+      context: .
+      dockerfile: CalculoDeJuros/Dockerfile
+
+  consultataxadejuros:
+    image: ${DOCKER_REGISTRY-}consultataxadejuros
+    build:
+      context: .
+      dockerfile: ConsultaTaxaDeJuros/Dockerfile
+

@@ -8,8 +8,14 @@ using System;
 
 namespace ConsultaTaxaDeJuros
 {
+    /// <summary>
+    /// Start da aplicação.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Start da aplicação.
+        /// </summary>
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
@@ -37,7 +43,7 @@ namespace ConsultaTaxaDeJuros
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>

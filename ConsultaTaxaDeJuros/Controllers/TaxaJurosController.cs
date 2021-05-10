@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ConsultaTaxaDeJuros.Controllers
 {
+    /// <summary>
+    /// API para consulta de taxa de juros.
+    /// </summary>
     [ApiController]
     [Route("/taxaJuros")]
     public class TaxaJurosController : ControllerBase
@@ -12,6 +15,9 @@ namespace ConsultaTaxaDeJuros.Controllers
         private readonly ILogger<TaxaJurosController> _logger;
         private readonly IConsultaDeTaxaJuros _consultaDeTaxaJuros;
 
+        /// <summary>
+        /// Construtor.
+        /// </summary>
         public TaxaJurosController(
             ILogger<TaxaJurosController> logger,
             IConsultaDeTaxaJuros consultaDeTaxaJuros)
@@ -20,6 +26,9 @@ namespace ConsultaTaxaDeJuros.Controllers
             _consultaDeTaxaJuros = consultaDeTaxaJuros;
         }
 
+        /// <summary>
+        /// Obter taxa de juros.
+        /// </summary>
         [HttpGet]
         public async Task<double> Get()
         {

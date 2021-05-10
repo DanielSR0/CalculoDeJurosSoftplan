@@ -1,5 +1,7 @@
 using CalculoDeJuros.ImplementacaoNegocio;
+using CalculoDeJuros.Negocio;
 using FluentAssertions;
+using NSubstitute;
 using System;
 using Xunit;
 
@@ -7,6 +9,14 @@ namespace TestesUnitarios
 {
     public class CalculaJuros
     {
+        private readonly IServicoDeConsultaTaxaJuros mockServicoDeConsultaTaxaJuros;
+
+        public CalculaJuros()
+        {
+            mockServicoDeConsultaTaxaJuros = Substitute.For<IServicoDeConsultaTaxaJuros>();
+            mockServicoDeConsultaTaxaJuros.ObterTaxaAtual().Returns(0.01);
+        }
+
         [Theory]
         [InlineData(10, 3, 10.3)]
         [InlineData(24, 6, 25.47)]
@@ -18,7 +28,7 @@ namespace TestesUnitarios
         [InlineData(548.17, 96, 1424.84)]
         public async void CalcularJuros(double valorInicial, int meses, double jurosEsperado)
         {
-            var calculaJuros = new ServicoDeCalculoJuros();
+            var calculaJuros = new ServicoDeCalculoJuros(mockServicoDeConsultaTaxaJuros);
             var jurosCalculado = await calculaJuros.CalcularJuros(valorInicial, meses);
 
             jurosCalculado.Should().Be(jurosEsperado);
@@ -29,7 +39,7 @@ namespace TestesUnitarios
         [InlineData(478, 0, "Número de meses deve ser maior que zero (Parameter 'meses')")]
         public async void CalcularJurosParametrosInvalidos(double valorInicial, int meses, string erroValidacao)
         {
-            var calculaJuros = new ServicoDeCalculoJuros();
+            var calculaJuros = new ServicoDeCalculoJuros(mockServicoDeConsultaTaxaJuros);
 
             try
             {
